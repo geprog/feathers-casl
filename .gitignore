@@ -116,7 +116,5 @@ $RECYCLE.BIN/
 # dot_env
 .env.*
 
-/dist
-
 .temp
 docs/.vitepress/dist

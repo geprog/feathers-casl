@@ -1,0 +1,21 @@
+import * as hooks from "./hooks";
+import * as channels from "./channels";
+import checkCan from "./utils/checkCan";
+import mergeQueryFromAbility from "./utils/mergeQueryFromAbility";
+import initialize from "./initialize";
+export default initialize;
+export { hooks };
+export { authorize, checkBasicPermission } from "./hooks";
+export { channels };
+export { getChannelsWithReadAbility } from "./channels";
+export { default as makeAbilityFromRules } from "./makeAbilityFromRules";
+export { Ability, AbilityBuilder, createAliasResolver, defineAbility } from "@casl/ability";
+export { checkCan, mergeQueryFromAbility };
+export declare const utils: {
+    checkCan: <S>(ability: import("@casl/ability").AnyAbility, id: import("@feathersjs/feathers/lib").Id, method: string, modelName: string, service: import("@feathersjs/feathers/lib").Service<S, Partial<S>>, providedOptions?: Partial<import("./types").UtilCheckCanOptions>) => Promise<boolean>;
+    checkBasicPermission: (context: import("@feathersjs/feathers/lib").HookContext<import("@feathersjs/feathers/lib").Application<any, any>, any>, _options?: Partial<import("./types").CheckBasicPermissionUtilsOptions>) => Promise<import("@feathersjs/feathers/lib").HookContext<import("@feathersjs/feathers/lib").Application<any, any>, any>>;
+    hasRestrictingConditions: (ability: import("@casl/ability").AnyAbility, action: string, modelName: string) => false | import("@casl/ability/dist/types/Rule").Rule<import("@casl/ability").Abilities, unknown>[];
+    hasRestrictingFields: (ability: import("@casl/ability").AnyAbility, action: string, subject: import("@casl/ability").Subject, options?: import("./types").HasRestrictingFieldsOptions) => boolean | string[];
+    mergeQueryFromAbility: typeof mergeQueryFromAbility;
+};
+export * from "./types";
