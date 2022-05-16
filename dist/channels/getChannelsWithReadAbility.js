@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,7 +22,7 @@ const channels_utils_1 = require("./channels.utils");
 const getModelName_1 = __importDefault(require("../utils/getModelName"));
 const hasRestrictingFields_1 = __importDefault(require("../utils/hasRestrictingFields"));
 const getAvailableFields_1 = __importDefault(require("../utils/getAvailableFields"));
-exports.default = (app, data, context, _options) => {
+exports.default = (app, data, context, _options) => __awaiter(void 0, void 0, void 0, function* () {
     if (!(_options === null || _options === void 0 ? void 0 : _options.channels) && !app.channels.length) {
         return undefined;
     }
@@ -42,10 +51,10 @@ exports.default = (app, data, context, _options) => {
     if (!options.restrictFields) {
         // return all fields for allowed
         result = channels.map(channel => {
-            return channel.filter(conn => {
-                const ability = (0, channels_utils_1.getAbility)(app, data, conn, context, options);
+            return new base_1.Channel(channel.connections.filter((conn) => __awaiter(void 0, void 0, void 0, function* () {
+                const ability = yield (0, channels_utils_1.getAbility)(app, data, conn, context, options);
                 return ability && ability.can(method, dataToTest);
-            });
+            })), channel.data);
         });
     }
     else {
@@ -56,7 +65,7 @@ exports.default = (app, data, context, _options) => {
             const { connections } = channel;
             for (let j = 0, o = connections.length; j < o; j++) {
                 const connection = connections[j];
-                const { ability } = connection;
+                const ability = yield (0, channels_utils_1.getAbility)(app, data, connection, context, options);
                 if (!ability || !ability.can(method, dataToTest)) {
                     // connection cannot read item -> don't send data
                     continue;
@@ -96,4 +105,4 @@ exports.default = (app, data, context, _options) => {
     return result.length === 1
         ? result[0]
         : result;
-};
+});
