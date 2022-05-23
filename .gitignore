@@ -118,3 +118,6 @@ $RECYCLE.BIN/
 
 .temp
 docs/.vitepress/dist
+
+.cache
+.temp
