@@ -94,7 +94,7 @@ export interface ChannelOptions extends AuthorizeChannelCommonsOptions {
         connection: RealTimeConnection,
         data: unknown,
         context: HookContext
-      ) => AnyAbility);
+      ) => Promise<AnyAbility> | AnyAbility);
   /** Easy way to disable filtering, default: `false` */
   activated: boolean;
   /** Channel that's used when there occurs an error, default: `['authenticated']` */
